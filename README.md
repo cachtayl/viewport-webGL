@@ -1,7 +1,6 @@
-# viewport-webGL 
+# viewport-webGL 5/23/21
 
 <div>
-    <h1> WebGL Viewport 5/23/21 </h1>
     <h3>Description:</h3> <p>This project can render customizable cylinders,
     cubes, and spheres in real time. The user's abilities range from assigning object's 
     RGB color, changing between rendering modes, toggling lights in the scene, being 
