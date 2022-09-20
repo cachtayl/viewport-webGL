@@ -1,8 +1,9 @@
 # viewport-webGL 5/23/21
 
 <div>
-    <h3>Description:</h3> <p>This project can render customizable cylinders,
-    cubes, and spheres in real time. The user's abilities range from assigning object's 
+    <h3>Description:</h3> <p>This project is a barebones 3D modeling viewport that can run on your browser using WebGL.
+    It's capabilities include rendering customizable cylinders, cubes, and spheres in real time. 
+    The user's abilities range from assigning object's 
     RGB color, changing between rendering modes, toggling lights in the scene, being 
     able to manipulate the objects with translating, rotating, and scaling
     in the xyz axes, moving the camera, and choosing what kind of projection.</p>
