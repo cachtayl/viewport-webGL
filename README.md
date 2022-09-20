@@ -39,5 +39,10 @@
     <br>Z/X- tilt Camera up/down
     <br>T- Camera spiraling Animation around thbe origin</p>
     <p><b>Note: </b>X axis is horizontal, Y axis is vertical, Z axis is forwards/away</p>
+    <h1> Contributors </h1>
+    If you'd like to contribute, please fork the repository and make changes as you'd like. <br><b>Pull requests are warmly welcome.</b>
+    <p></p>
+    <h1> License </h1>
+    <p>MIT License 2022 - Cameron Taylor</p>
 </div>
 
