@@ -1,35 +1,14 @@
 # viewport-webGL 
-
-<head>
-    <meta charset="utf-8">
-    <title>Features</title>
-    <!-- Load external libs -->
-    <script src="lib/cuon-matrix-cse160.js"></script>
-    <script src="lib/cuon-utils.js"></script>
-    <script src="lib/webgl-debug.js"></script>
-    <script src="lib/webgl-utils.js"></script>
-    <!-- Load main -->
-    <script src="asg4.js"></script>
-    <script src="driver.html"></script>
-    <script src="models/model.js"></script>
-    <script src="models/cube.js"></script>
-    <script src="models/cylinder.js"></script>
-    <script src="models/sphere.js"></script>
-    <script src="camera.js"></script>
-</head>
-
 <body onload="main()">
     <br>
     <br>
-    <h1>Cameron Taylor  cachtayl</hl>
-    <h2> Program4 5/23/21 </h2>
+    <h2> WebGL Project 5/23/21 </h2>
     <h3> Instructions </h3>
     1.) Read this page<br>
-    2.) Click on source hyperlink(at bottom of page)<br>
+    2.) Clone the Repo<br>
     3.) Click on driver.html<br>
-    4.) Enjoy!<br>
     <p>
-    <h3>Purpose:</h3> This project can render customizable cylinders,<br>
+    <h3>Purpose:</h3> This project can render customizable cylinders,
     cubes, and spheres in real time. The user's abilities range from assigning object's <br>
     RGB color, changing between rendering modes, toggling lights in the scene, being <br>
     able to manipulate the objects with translating, rotating, and scaling<br>
@@ -65,10 +44,6 @@
     A/D- Move camera left/right<br>
     Q/E- Pan camera left/right<br>
     Z/X- tilt Camera up/down<br>
-    T- Camera spiraling Animation around thbe origin
-    <p>
-    <li>
-            <a href="../prog4">Source</a>
-    </li>
+    T- Camera spiraling Animation around the origin
 </body>
 
