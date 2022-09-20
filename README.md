@@ -9,7 +9,6 @@
     in the xyz axes, moving the camera, and choosing what kind of projection.</p>
     <img src="media/screenshot.PNG" alt="Scene" width="900" height="800"><br>
     <p><b>How to run:</b>
-    <br>
     <br>1.) Click on "Code" button on top right
     <br>2.) Then "Download ZIP"
     <br>3.) Extract the files
