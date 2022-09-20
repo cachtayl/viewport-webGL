@@ -65,8 +65,6 @@ let GVSHADER=`
 
     uniform mat4 u_ModelMatrix;
     uniform mat4 u_NormalMatrix;
-    uniform mat4 u_ViewMatrix;
-    uniform mat4 u_ProjMatrix;
 
     uniform vec3 u_Color;
 
@@ -121,7 +119,7 @@ let GVSHADER=`
         // Final light color
         v_Color = vec4(ambient + diffuse + specular, 1.0);
 
-        gl_Position = u_ProjMatrix * u_ViewMatrix * worldPos;
+        gl_Position = worldPos;
     }
 `;
 
@@ -142,7 +140,7 @@ let normalMatrix = new Matrix4();
 // Models in the world
 let lightPosition = new Vector3([1.0, 1.0, -1.0]);
 let directionalLight = new Vector3([1.0, 3.0, -3.0]);
-let pointLight = new Vector3([0.0, 1.0, 2.0]);
+let pointLight = new Vector3([1.0, 1.0, -1.0]);
 
 let eyePosition = new Vector3([0.0, 0.0, 0.0]);
 let models = [];
@@ -150,8 +148,6 @@ let models = [];
 // Uniform locations
 let u_ModelMatrix = null;
 let u_NormalMatrix = null;
-let u_ViewMatrix = null;
-let u_ProjMatrix = null;
 
 let u_Color = null;
 let u_diffuseColor = null;
@@ -209,6 +205,8 @@ function drawModel(model){
 
 
 }
+
+
 function initBuffer(attibuteName, n) {
     let shaderBuffer = gl.createBuffer();
     if(!shaderBuffer) {
@@ -224,89 +222,17 @@ function initBuffer(attibuteName, n) {
 
     return shaderBuffer;
 }
-let t = 0;
-let twirl = false;
 function draw(){
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  //lightDirection = new Vector3([0.0, 1.0, -3.0]);
 
-  //cameraRotation = cameraRotation.multiplyVector3(camera.eye.elementts);
-
-  // // Update eye position in the shader
-  gl.uniform3fv(u_eyePosition, camera.eye.elements);
-
-  // Update View matrix in the shader
-  gl.uniformMatrix4fv(u_ViewMatrix, false, camera.viewMatrix.elements);
-
-  // Update Projection matrix in the shader
-  gl.uniformMatrix4fv(u_ProjMatrix, false, camera.projMatrix.elements);
+  // lightDirection = lightRotate.multiplyVector3(lightDirection);
 
   for(let m of models) {
       drawModel(m);
   }
-  if(twirl == true && t <= 1){
-    camera.twirl(3, t);
-    t += 0.001;
-  } else {
-    t = 0;
-    twirl = false;
-  }
   requestAnimationFrame(draw);
 }
-function onZoomInput(value) {
-    console.log(1.0 + value/10);
-    camera.zoom(1.0 + value/10);
-}
-window.addEventListener("keydown", function(event) {
-    let speed = 0.1;
-
-    switch (event.key) {
-        case "w":
-            console.log("forward");
-            camera.moveForward(speed);
-            break;
-        case "a":
-            console.log("left");
-            camera.moveSideways(-speed);
-            break;
-        case "s":
-            console.log("back");
-            camera.moveForward(-speed);
-            break;
-        case "d":
-            console.log("right");
-            camera.moveSideways(speed);
-            break;
-
-        case "q":
-            console.log("pan left");
-            camera.pan(5);
-            break;
-        case "e":
-            console.log("pan right");
-            camera.pan(-5);
-            break;
-        case "z":
-            console.log("tilt up");
-            camera.tilt(5);
-            break;
-        case "x":
-            console.log("tilt down");
-            camera.tilt(-5);
-            break;
-        case "t":
-            if(twirl == true){
-              twirl = false;
-            }else{
-              twirl = true;
-            }
-
-
-    }
-});
-window.addEventListener("mousemove", function(event) {
-     //console.log(event.movementX, event.movementY);
-})
-
 function addModel(color, shapeType) {
     let model = null;
     switch (shapeType) {
@@ -440,8 +366,6 @@ function main() {
     u_Gourade = gl.getUniformLocation(gl.program, "u_Gourade");
     u_pointToggle = gl.getUniformLocation(gl.program, "u_pointToggle");
     u_dirToggle = gl.getUniformLocation(gl.program, "u_dirToggle");
-    u_ViewMatrix = gl.getUniformLocation(gl.program, "u_ViewMatrix");
-    u_ProjMatrix = gl.getUniformLocation(gl.program, "u_ProjMatrix");
 
     vertexBuffer = initBuffer("a_Position", 3);
     normalBuffer = initBuffer("a_Normal", 3);
@@ -462,25 +386,17 @@ function main() {
     gl.uniform3fv(u_lightPosition, lightPosition.elements);
     gl.uniform3fv(u_directionalLight, directionalLight.elements);
     gl.uniform3fv(u_pointLight, pointLight.elements);
-
-    camera = new Camera("perspective");
+    camera = new Camera();
     //gl.uniform3f(u_lightDirection, 0.5, 3.0, -4.0);
     draw();
 
-}
-function cameraType(){
-  if(document.getElementById("orthographic").checked == false){
-      camera = new Camera("perspective");
-  }else{
-    camera = new Camera("orthographic");
-  }
 }
 function toggleLight(){
   if(document.getElementById("point").checked == false){
     pointLight = new Vector3([0.0, 0.0, 0.0]);
     gl.uniform1f(u_pointToggle, 0.0);
   }else{
-    pointLight = new Vector3([0.0, 1.0, 2.0]);
+    pointLight = new Vector3([1.0, 1.0, -1.0]);
     gl.uniform1f(u_pointToggle, 1.0);
   }
   if(document.getElementById("directional").checked == false){

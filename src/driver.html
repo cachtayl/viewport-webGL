@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>ASG 4</title>
+        <title>ASG 3</title>
 
         <!-- Load external libs -->
         <script src="lib/cuon-matrix-cse160.js"></script>
@@ -14,10 +14,10 @@
         <script src="models/cube.js"></script>
         <script src="models/cylinder.js"></script>
         <script src="models/sphere.js"></script>
-        <script src="camera.js"></script>
+
 
         <!-- Load main -->
-        <script src="asg4.js"></script>
+        <script src="asg3.js"></script>
         <style>
         .slidecontainer {
           width: 20%; /* Width of the outside container */
@@ -73,10 +73,6 @@
           <option value= "wireframe">Wireframe</option>
           <!-- <option value= "phong">Phong Shading</option> -->
         </select>
-        <br> <br>
-        <label for="orthographic">Orthographic:</label>
-        <input type="checkbox" id= "orthographic" onclick = "cameraType()">
-
         <br><br>
 
         <input type="button" value= "Draw Malet" onclick = "malet()">
@@ -96,7 +92,6 @@
         <input type="checkbox" id="directional" onclick="toggleLight()"></input>
         <br>
         <br>
-
         <div class="slidecontainer1">
           Ambient: <input type="range" min="0" max="100" value="20" class="slider" id="ambient"
                       oninput="ambient(this.value)"></input> </div>
@@ -125,14 +120,14 @@
           <br>
         <div class="slidecontainer">
           Rotate: <br>
-          X: <input type="range" min="-180" max="180" value="0" class="slider"
+          X: <input type="range" min="-180" max="180" value="45" class="slider"
                   id="rotateX" oninput="onRotX(this.value)"></input></div>
         <div class="slidecontainer">
           Y: <input type="range" min="-180" max="180" value="0" class="slider" id="rotateY"
                  oninput="onRotY(this.value)"></input></div>
         <div class="slidecontainer">
 
-          Z: <input type="range" min="-180" max="180" value="0" class="slider" id="rotateZ"
+          Z: <input type="range" min="-180" max="180" value="45" class="slider" id="rotateZ"
                  oninput="onRotZ(this.value)"></input></div>
           <br>
           <br>
@@ -147,9 +142,7 @@
           Z: <input type="range" min="1" max="100" value="25" class="slider" id="scaleZ"
                 oninput="onScaleZ(this.value)"></input>
         </div>
-        <br><br>
-        <label>Zoom Out:</label>
-        <input id="zoomSlider" value="1" type="range" min="1" max="20" oninput="onZoomInput(this.value)"></input>
+
 
 
     </body>
