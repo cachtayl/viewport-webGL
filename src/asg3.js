@@ -409,18 +409,6 @@ function toggleLight(){
   gl.uniform3fv(u_directionalLight, directionalLight.elements);
   gl.uniform3fv(u_pointLight, pointLight.elements);
 }
-function malet(){
-  document.getElementById("n").value = 20;
-  let cyl1 = addModel([1.0, 0.0, 0.0], "cylinder");
-  cyl1.setTranslate(-0.3, 0.0, 0.0);
-  cyl1.setRotate(45,90,0);
-  cyl1.setScale(0.15, 0.15, 0.75);
-  document.getElementById("n").value = 30;
-  let cyl2 = addModel([0.36, 0.21, 0.039], "cylinder");
-  cyl2.setTranslate(0.05, 0.25,0.0);
-  cyl2.setRotate(90, 0, 0);
-  cyl2.setScale(0.05, 0.05, 1.0);
-}
 function colorpicker(value) {
     // Get the selected cylinder
     let selector = document.getElementById("modelSelect");

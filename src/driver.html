@@ -1,149 +1,156 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>ASG 3</title>
 
-        <!-- Load external libs -->
-        <script src="lib/cuon-matrix-cse160.js"></script>
-        <script src="lib/cuon-utils.js"></script>
-        <script src="lib/webgl-debug.js"></script>
-        <script src="lib/webgl-utils.js"></script>
+<head>
+  <meta charset="utf-8">
+  <title>ASG 3</title>
 
-        <!-- Load internal libs -->
-        <script src="models/model.js"></script>
-        <script src="models/cube.js"></script>
-        <script src="models/cylinder.js"></script>
-        <script src="models/sphere.js"></script>
+  <!-- Load external libs -->
+  <script src="lib/cuon-matrix-cse160.js"></script>
+  <script src="lib/cuon-utils.js"></script>
+  <script src="lib/webgl-debug.js"></script>
+  <script src="lib/webgl-utils.js"></script>
 
-
-        <!-- Load main -->
-        <script src="asg3.js"></script>
-        <style>
-        .slidecontainer {
-          width: 20%; /* Width of the outside container */
-          display: inline-block;
-
-        }
-        .slidecontainer1 {
-          width: 10%; /* Width of the outside container */
-          display: inline-block;
-        }
-
-        /* The slider itself */
-        .slider {
-          -webkit-appearance: none;  /* Override default CSS styles */
-          appearance: none;
-          width: 100%; /* Full-width */
-          height: 10px; /* Specified height */
-          background: #d3d3d3; /* Grey background */
-          outline: none; /* Remove outline */
-          opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-          -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-          transition: opacity .2s;
-          display: flex;
-        }
-
-        /* Mouse-over effects */
-        .slider:hover {
-          opacity: 1; /* Fully shown on mouse-over */
-        }
-        </style>
-    </head>
-
-    <body onload="main()">
-        <canvas id="canvas" width="400" height="400"></canvas>
-        <br>
-        <br>
-        Sphere: <input type="button" value= "Add" onclick = "addSphereEvent()">
-        <br>
-        <br>
-        Cube: <input type="button" value= "Add" onclick = "addCubeEvent()">
-        <br>
-        <br>
-        Cylinder N: <input id = "n" placeholder="Min. 3" type="number"></input>
-
-        <!-- Which Object: <input id = "objectNum" type="number"></input> -->
-        <input type="button" value= "Add" onclick = "addCylinderEvent()">
-
-        <br><br>
-        <label for="shading">Render type:</label>
-        <select name="shading" id = "shadingSelect">
-          <option value= "flat">Flat Shading</option>
-          <option value= "smooth">Smooth Gourade Shading</option>
-          <option value= "wireframe">Wireframe</option>
-          <!-- <option value= "phong">Phong Shading</option> -->
-        </select>
-        <br><br>
-
-        <input type="button" value= "Draw Malet" onclick = "malet()">
-        <br>
-        <br>
-        <select id="modelSelect">
-            <!-- <option selected disabled>Empty</option> -->
-        </select>
-        <input type="button" value= "Delete" onclick = "deleteModel()">
-        <br> <br>
-        <label for="colorpicker">Color Picker:</label>
-        <input type="color" id="colorpicker" value="#0000ff" oninput="colorpicker(this.value)">
-        <br> <br>
-        <label for="point">Point Light:</label>
-        <input type="checkbox" id="point" onclick="toggleLight()" checked></input> <br><br>
-        <label for="directional">Directional Light:</label>
-        <input type="checkbox" id="directional" onclick="toggleLight()"></input>
-        <br>
-        <br>
-        <div class="slidecontainer1">
-          Ambient: <input type="range" min="0" max="100" value="20" class="slider" id="ambient"
-                      oninput="ambient(this.value)"></input> </div>
-        <div class="slidecontainer1">
-          Diffuse: <input type="range" min="0" max="100" value="80" class="slider" id="diffuse"
-                      oninput="diffuse(this.value)"></input>  </div>
-        <div class="slidecontainer1">
-          Specular: <input type="range" min="0" max="100" value="100" class="slider" id="specular"
-                      oninput="specular(this.value)"></input>  </div>
-        <div class="slidecontainer1">
-          Shininess: <input type="range" min="1" max="100" value="32" class="slider" id="alpha"
-                      oninput="specAlpha(this.value)"></input>  </div>
-          <br>
-          <br>
-        <div class="slidecontainer">
-          Translate: <br>
-          X: <input type="range" min="-100" max="100" value="0" class="slider" id="translateX"
-                      oninput="onTranX(this.value)"></input> </div>
-        <div class="slidecontainer">
-          Y: <input type="range" min="-100" max="100" value="0" class="slider" id="translateY"
-                      oninput="onTranY(this.value)"></input>  </div>
-        <div class="slidecontainer">
-          Z: <input type="range" min="-100" max="100" value="0" class="slider" id="translateZ"
-                      oninput="onTranZ(this.value)"></input>  </div>
-          <br>
-          <br>
-        <div class="slidecontainer">
-          Rotate: <br>
-          X: <input type="range" min="-180" max="180" value="45" class="slider"
-                  id="rotateX" oninput="onRotX(this.value)"></input></div>
-        <div class="slidecontainer">
-          Y: <input type="range" min="-180" max="180" value="0" class="slider" id="rotateY"
-                 oninput="onRotY(this.value)"></input></div>
-        <div class="slidecontainer">
-
-          Z: <input type="range" min="-180" max="180" value="45" class="slider" id="rotateZ"
-                 oninput="onRotZ(this.value)"></input></div>
-          <br>
-          <br>
-        <div class="slidecontainer">
-          Scale:<br>
-          X: <input type="range" min="1" max="100" value="25" class="slider" id="scaleX"
-                oninput="onScaleX(this.value)"></input></div>
-        <div class="slidecontainer">
-          Y: <input type="range" min="1" max="100" value="25" class="slider" id="scaleY"
-                oninput="onScaleY(this.value)"></input></div>
-        <div class="slidecontainer">
-          Z: <input type="range" min="1" max="100" value="25" class="slider" id="scaleZ"
-                oninput="onScaleZ(this.value)"></input>
-        </div>
+  <!-- Load internal libs -->
+  <script src="models/model.js"></script>
+  <script src="models/cube.js"></script>
+  <script src="models/cylinder.js"></script>
+  <script src="models/sphere.js"></script>
 
 
+  <!-- Load main -->
+  <script src="asg3.js"></script>
+  <style>
+    .slidecontainer {
+      width: 20%;
+      /* Width of the outside container */
+      display: inline-block;
 
-    </body>
+    }
+
+    .slidecontainer1 {
+      width: 10%;
+      /* Width of the outside container */
+      display: inline-block;
+    }
+
+    /* The slider itself */
+    .slider {
+      -webkit-appearance: none;
+      /* Override default CSS styles */
+      appearance: none;
+      width: 100%;
+      /* Full-width */
+      height: 10px;
+      /* Specified height */
+      background: #d3d3d3;
+      /* Grey background */
+      outline: none;
+      /* Remove outline */
+      opacity: 0.7;
+      /* Set transparency (for mouse-over effects on hover) */
+      -webkit-transition: .2s;
+      /* 0.2 seconds transition on hover */
+      transition: opacity .2s;
+      display: flex;
+    }
+
+    /* Mouse-over effects */
+    .slider:hover {
+      opacity: 1;
+      /* Fully shown on mouse-over */
+    }
+  </style>
+</head>
+
+<body onload="main()">
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <br>
+  <br>
+  Sphere: <input type="button" value="Add" onclick="addSphereEvent()">
+  <br>
+  <br>
+  Cube: <input type="button" value="Add" onclick="addCubeEvent()">
+  <br>
+  <br>
+  Cylinder N: <input id="n" placeholder="Min. 3" type="number"></input>
+
+  <!-- Which Object: <input id = "objectNum" type="number"></input> -->
+  <input type="button" value="Add" onclick="addCylinderEvent()">
+
+  <br><br>
+  <label for="shading">Render type:</label>
+  <select name="shading" id="shadingSelect">
+    <option value="flat">Flat Shading</option>
+    <option value="smooth">Smooth Gourade Shading</option>
+    <option value="wireframe">Wireframe</option>
+    <!-- <option value= "phong">Phong Shading</option> -->
+  </select>
+  <br>
+  <br>
+  <select id="modelSelect">
+    <!-- <option selected disabled>Empty</option> -->
+  </select>
+  <input type="button" value="Delete" onclick="deleteModel()">
+  <br> <br>
+  <label for="colorpicker">Color Picker:</label>
+  <input type="color" id="colorpicker" value="#0000ff" oninput="colorpicker(this.value)">
+  <br> <br>
+  <label for="point">Point Light:</label>
+  <input type="checkbox" id="point" onclick="toggleLight()" checked></input> <br><br>
+  <label for="directional">Directional Light:</label>
+  <input type="checkbox" id="directional" onclick="toggleLight()"></input>
+  <br>
+  <br>
+  <div class="slidecontainer1">
+    Ambient: <input type="range" min="0" max="100" value="20" class="slider" id="ambient"
+      oninput="ambient(this.value)"></input> </div>
+  <div class="slidecontainer1">
+    Diffuse: <input type="range" min="0" max="100" value="80" class="slider" id="diffuse"
+      oninput="diffuse(this.value)"></input> </div>
+  <div class="slidecontainer1">
+    Specular: <input type="range" min="0" max="100" value="100" class="slider" id="specular"
+      oninput="specular(this.value)"></input> </div>
+  <div class="slidecontainer1">
+    Shininess: <input type="range" min="1" max="100" value="32" class="slider" id="alpha"
+      oninput="specAlpha(this.value)"></input> </div>
+  <br>
+  <br>
+  <div class="slidecontainer">
+    Translate: <br>
+    X: <input type="range" min="-100" max="100" value="0" class="slider" id="translateX"
+      oninput="onTranX(this.value)"></input> </div>
+  <div class="slidecontainer">
+    Y: <input type="range" min="-100" max="100" value="0" class="slider" id="translateY"
+      oninput="onTranY(this.value)"></input> </div>
+  <div class="slidecontainer">
+    Z: <input type="range" min="-100" max="100" value="0" class="slider" id="translateZ"
+      oninput="onTranZ(this.value)"></input> </div>
+  <br>
+  <br>
+  <div class="slidecontainer">
+    Rotate: <br>
+    X: <input type="range" min="-180" max="180" value="45" class="slider" id="rotateX"
+      oninput="onRotX(this.value)"></input></div>
+  <div class="slidecontainer">
+    Y: <input type="range" min="-180" max="180" value="0" class="slider" id="rotateY"
+      oninput="onRotY(this.value)"></input></div>
+  <div class="slidecontainer">
+
+    Z: <input type="range" min="-180" max="180" value="45" class="slider" id="rotateZ"
+      oninput="onRotZ(this.value)"></input></div>
+  <br>
+  <br>
+  <div class="slidecontainer">
+    Scale:<br>
+    X: <input type="range" min="1" max="100" value="25" class="slider" id="scaleX"
+      oninput="onScaleX(this.value)"></input></div>
+  <div class="slidecontainer">
+    Y: <input type="range" min="1" max="100" value="25" class="slider" id="scaleY"
+      oninput="onScaleY(this.value)"></input></div>
+  <div class="slidecontainer">
+    Z: <input type="range" min="1" max="100" value="25" class="slider" id="scaleZ"
+      oninput="onScaleZ(this.value)"></input>
+  </div>
+</body>
+
 </html>
